@@ -1,9 +1,28 @@
-import React from 'react'
+import React, { useState } from 'react'
 import welcome from "../assets/welcome.jpg"
 import { PiEnvelopeLight } from "react-icons/pi";
 import { CiLock } from "react-icons/ci";
 import logo from "../assets/logo.jpg"
+import axios from "axios"
+import { Toaster ,toast} from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 const Login = () => {
+  const [email,setEmail]=useState("");
+  const [password,setPassword]=useState("");
+  const navigate =useNavigate()
+
+  const handleLogin=async()=>{
+    try{
+       const res=await axios.post('https://reqres.in/api/login',{email,password});
+       localStorage.setItem("token",res.data.token)
+       toast.success("logged in successfully");
+       setTimeout(() => {
+        navigate('/')
+       }, 2000);
+    }catch(err){
+      console.log(err.message)
+    }
+  }
   return (
     <div className='w-full h-[100vh] bg-gray-50  flex'>
     <div className='w-[100px]'>
@@ -25,7 +44,7 @@ const Login = () => {
         </div>
         <div className='flex flex-col '>
         <label htmlFor="" className='text-gray-500 text-sm'>Email Address</label>
-        <input type="email" className='outline-none'/>
+        <input type="email" className='outline-none' value={email} onChange={(e)=>setEmail(e.target.value)}/>
         </div>
     </div>
     <div className='flex gap-5 items-center  hover:bg-gray-200 p-5'>
@@ -34,11 +53,11 @@ const Login = () => {
         </div>
        <div className='flex flex-col '>
        <label htmlFor="" className='text-gray-500 text-sm'>Password</label>
-       <input type="password" className='outline-none'/>
+       <input type="password" className='outline-none' value={password} onChange={(e)=>setPassword(e.target.value)}/>
        </div>
     </div>
     <div className='flex justify-center'>
-    <button className='bg-blue-500 text-white px-6 py-2 mt-5 rounded-full cursor-pointer'>Login Now</button>
+    <button className='bg-blue-500 text-white px-6 py-2 mt-5 rounded-full cursor-pointer' onClick={handleLogin}>Login Now</button>
     </div>
 
     </div>
@@ -46,7 +65,7 @@ const Login = () => {
 
 
    </div>
-    
+    <Toaster/>
     </div>
   )
 }
