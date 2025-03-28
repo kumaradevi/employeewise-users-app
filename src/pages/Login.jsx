@@ -2,30 +2,35 @@ import React, { useState } from 'react'
 import welcome from "../assets/welcome.jpg"
 import { PiEnvelopeLight } from "react-icons/pi";
 import { CiLock } from "react-icons/ci";
-import logo from "../assets/logo.jpg"
+import logo from "../assets/logo.avif"
 import axios from "axios"
 import { Toaster ,toast} from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setAuth } from '../featured/authSlice';
 const Login = () => {
   const [email,setEmail]=useState("");
   const [password,setPassword]=useState("");
   const navigate =useNavigate()
+  const dispatch=useDispatch()
 
   const handleLogin=async()=>{
     try{
        const res=await axios.post('https://reqres.in/api/login',{email,password});
-       localStorage.setItem("token",res.data.token)
+       localStorage.setItem("token",res.data.token);
+       dispatch(setAuth(res.data.token));
        toast.success("logged in successfully");
        setTimeout(() => {
         navigate('/')
        }, 2000);
     }catch(err){
-      console.log(err.message)
+      toast.error(err.message)
+      console.log(res.message)
     }
   }
   return (
-    <div className='w-full h-[100vh] bg-gray-50  flex'>
-    <div className='w-[100px]'>
+    <div className='w-full h-[100vh] bg-gray-50  flex relative'>
+    <div className='w-[40px] absolute top-6 left-20'>
         <img src={logo} alt="" className='w-[100%] object-cover bg-gray-50'/>
     </div>
    {/* left */}
