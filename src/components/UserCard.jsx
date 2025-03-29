@@ -1,5 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+
+
 const UserCard = ({users}) => {
    
   return (
@@ -16,6 +18,7 @@ const UserCard = ({users}) => {
         <h2 className='text-xl font-medium'>{user.first_name} {user.last_name}</h2>
         <p className='text-sm'>{user.email}</p>
         </Link>
+        
         </div>
        
         </div>

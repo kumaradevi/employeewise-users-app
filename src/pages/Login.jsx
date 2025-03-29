@@ -6,7 +6,7 @@ import logo from "../assets/logo.avif"
 import axios from "axios"
 import { Toaster ,toast} from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setAuth } from '../featured/authSlice';
 const Login = () => {
   const [email,setEmail]=useState("");
@@ -14,6 +14,7 @@ const Login = () => {
   const navigate =useNavigate()
   const dispatch=useDispatch()
 
+  
   const handleLogin=async()=>{
     try{
        const res=await axios.post('https://reqres.in/api/login',{email,password});

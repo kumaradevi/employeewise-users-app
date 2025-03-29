@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import UserCard from '../components/UserCard'
 import axios from 'axios'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import Loader from '../components/Loader'
+import { setUsers } from '../featured/usersSlice'
 
 const UserList = () => {
-    const [users,setUsers]=useState([])
     const token=useSelector((state)=>state.auth.token);
     const navigate=useNavigate();
+    const [loading,setLoading]=useState(false);
     const [page,setPage]=useState(1);
     const totalPages=2;
-    
+    const dispatch=useDispatch();
+    const users=useSelector(state=>state.users.data)
    if(!token){
     navigate('/login');
    
@@ -18,12 +21,14 @@ const UserList = () => {
 
     const fetchUsers=async()=>{
         try{
+            setLoading(true)
        const res=await axios.get(`https://reqres.in/api/users?page=${page}`,{
         headers:{
             Authorization:`Bearer ${token}`
         }
        });
-       setUsers(res.data.data)
+       setLoading(false);
+       dispatch(setUsers(res.data.data))
         }
         catch(err){
             console.log(err.message)
@@ -42,6 +47,8 @@ const UserList = () => {
         setPage(page=>page+1)
     }
   return (
+    <div>
+       {loading ? (<div className='flex justify-center items-center w-full h-[100vh]'> <Loader/> </div>): (
     <div className='w-[80%] mx-auto h-[100vh] '>
         <div className='mt-12  '>
         <UserCard users={users}/>
@@ -51,6 +58,7 @@ const UserList = () => {
        <button className='bg-blue-500 text-white px-5 py-2 rounded-md text-lg font-medium'>{page}</button>
        <button className='bg-blue-500 text-white px-5 py-2 rounded-md text-lg font-medium disabled:bg-gray-300' onClick={handleNext} disabled={page==totalPages}>next</button>
        </div>
+    </div>)}
     </div>
   )
 }

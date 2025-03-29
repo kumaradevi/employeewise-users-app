@@ -1,26 +1,49 @@
-import React from 'react'
-import Login from './pages/Login'
-import { BrowserRouter,Routes,Route } from 'react-router-dom'
-import UserList from './pages/UserList'
-import Navbar from './components/Navbar'
-import { useSelector } from 'react-redux'
-import UserDetails from './pages/UserDetails'
-const App = () => {
-  const token=useSelector((state)=>state.auth.token)
-  return (
-    <div>
-      <BrowserRouter>
-      {token && <Navbar/>}
-      <Routes>
-        <Route path='/login' element={<Login/>}></Route>
-        <Route path='/' element={<UserList/>}></Route>
-        <Route path='/user/:id' element={<UserDetails/>}></Route>
-      </Routes>
-      
-      </BrowserRouter>
-      
-    </div>
-  )
-}
+import React from "react";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
+import Login from "./pages/Login";
+import UserList from "./pages/UserList";
+import UserDetails from "./pages/UserDetails";
+import Navbar from "./components/Navbar";
+import ProtectedRoute from "./components/ProtectedRoute";
 
-export default App
+const AppContent = () => {
+  const token = useSelector((state) => state.auth.token) || localStorage.getItem("token");
+  const users=useSelector(state=>state.users.data);
+  const location=useLocation();
+  const isLoginPage=location.pathname === '/login'
+  return (
+   <>
+      {!isLoginPage && token && <Navbar />}
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <UserList />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/user/:id"
+          element={
+            <ProtectedRoute>
+              <UserDetails />
+            </ProtectedRoute>
+          }
+        />
+      </Routes>
+   </>
+  );
+};
+
+const App = () => {
+  return (
+    <BrowserRouter>
+      <AppContent />
+    </BrowserRouter>
+  );
+};
+
+export default App;

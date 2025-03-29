@@ -23,7 +23,6 @@ const UserDetails = () => {
             }
           });
           setLoading(false)
-          console.log(res.data.data);
           setUser(res.data.data)
         }
         catch(err){
