@@ -6,10 +6,10 @@ import UserList from "./pages/UserList";
 import UserDetails from "./pages/UserDetails";
 import Navbar from "./components/Navbar";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Footer from "./components/Footer";
 
 const AppContent = () => {
   const token = useSelector((state) => state.auth.token) || localStorage.getItem("token");
-  const users=useSelector(state=>state.users.data);
   const location=useLocation();
   const isLoginPage=location.pathname === '/login'
   return (
@@ -34,6 +34,7 @@ const AppContent = () => {
           }
         />
       </Routes>
+      {!isLoginPage && token && <Footer />}
    </>
   );
 };

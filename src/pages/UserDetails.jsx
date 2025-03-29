@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import Loader from '../components/Loader';
+import { IoChevronBackOutline } from "react-icons/io5";
 
 const UserDetails = () => {
     const {id}=useParams();
@@ -38,7 +39,10 @@ const UserDetails = () => {
   return (
     <div className='w-full h-[100vh] mt-12'>
         {loading ? (<Loader/>) : 
-       ( <UserDetailCard user={user}/>)}
+       (<div> 
+        <button className='ml-12 cursor-pointer text-xl font-medium flex gap-2 items-center' onClick={()=>navigate(-1)}><IoChevronBackOutline  size={23}/>Back</button>
+        <UserDetailCard user={user}/> 
+        </div>)}
     </div>
   )
 }

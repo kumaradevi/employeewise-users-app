@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { clearAuth } from '../featured/authSlice';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
-
+import { IoIosLogOut } from "react-icons/io";
 
 const Navbar = () => {
  const dispatch=useDispatch();
@@ -28,8 +28,8 @@ const Navbar = () => {
         <p className='text-2xl font-medium'>EmployeeWise</p>
         </div>
        <div >
-        <button onClick={handleLogout}>Logout</button>
-         <img src="" alt="" />
+        <button onClick={handleLogout} className='flex gap-2 cursor-pointer'><IoIosLogOut size={30} /> Logout</button>
+        
        </div>
         </div>
     </div>

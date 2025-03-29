@@ -49,7 +49,7 @@ const EditProfile = ({setShow,user}) => {
     <div className='w-[600px] max-h-[360px] shadow-md rounded-xl p-4 flex flex-col gap-4 mt-40 relative'>
         <form action="">
             <h2 className='text-2xl font-medium text-center'>Edit Profile</h2>
-            <span className='absolute right-4 top-4 cursor-pointer' onClick={handleClose}><IoIosCloseCircle size={25} className='text-red-500'/></span>
+            <span className='absolute right-4 top-4 cursor-pointer hover:scale-125 transition' onClick={handleClose}><IoIosCloseCircle size={25} className='text-red-500 '/></span>
             <div className='flex flex-col gap-2'>
                 <label htmlFor="">First Name</label>
                 <input type="text" className='border border-gray-300 rounded-lg px-3 py-2 outline-none' value={firstName} onChange={(e)=>setFirstName(e.target.value)}/>

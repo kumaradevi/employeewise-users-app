@@ -30,20 +30,20 @@ const Login = () => {
     }
   }
   return (
-    <div className='w-full h-[100vh] bg-gray-50  flex relative'>
-    <div className='w-[40px] absolute top-6 left-20'>
+    <div className='w-full h-[100vh] bg-gray-50  flex flex-col lg:flex-row relative'>
+    <div className='w-[25px] lg:w-[40px] absolute lg:top-6 lg:left-20 top-4 left-12'>
         <img src={logo} alt="" className='w-[100%] object-cover bg-gray-50'/>
     </div>
    {/* left */}
-   <div className='w-1/2 flex justify-center items-center'>
+   <div className='w-full lg:w-1/2 flex justify-center items-center mt-20 lg:mt-0'>
     <img src={welcome} alt="welcome"  className='w-[60%] h-[70%] object-cover'/>
    </div>
    {/* right */}
-   <div className='w-1/2 flex justify-center items-center'>
-   <div className='w-[60%] h-[70%]'>
+   <div className='w-full lg:w-1/2 flex justify-center items-center'>
+   <div className='w-[90%] h-[400px] lg:w-[60%] lg:h-[70%]'>
      <h4 className='text-3xl font-medium'>Welcome Back :)</h4>
      <p className='mt-3 text-gray-600 '>To keep connected with us please login with your personal information by email address and password</p>
-   <div className='mt-12 bg-white shadow-sm rounded-xl w-[420px] h-[260px] '>
+   <div className='mt-12 bg-white shadow-sm rounded-xl lg:w-[420px] lg:h-[260px] w-full min-h-[200px]'>
     <div className='flex gap-5 items-center rounded-tr-xl rounded-tl-xl hover:bg-gray-200 p-5'>
         <div>
         <PiEnvelopeLight size={30} className='text-gray-500'/>
@@ -63,7 +63,7 @@ const Login = () => {
        </div>
     </div>
     <div className='flex justify-center'>
-    <button className='bg-blue-500 text-white px-6 py-2 mt-5 rounded-full cursor-pointer' onClick={handleLogin}>Login Now</button>
+    <button className='bg-blue-500 text-white px-6 py-2 my-5 rounded-full cursor-pointer' onClick={handleLogin}>Login Now</button>
     </div>
 
     </div>
